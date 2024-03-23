@@ -4,6 +4,7 @@
  */
 package com.motorph.motorph1;
 
+import javax.swing.ImageIcon;
 /**
  *
  * @author Administrator
@@ -42,7 +43,7 @@ public class frontpage extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Administrator\\Documents\\NetBeansProjects\\MotorPH1\\src\\main\\java\\img\\Logo.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo.png"))); // NOI18N
 
         jButton1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 51, 102));

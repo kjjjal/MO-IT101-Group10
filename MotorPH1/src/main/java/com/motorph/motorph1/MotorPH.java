@@ -5,6 +5,10 @@
 package com.motorph.motorph1;
 
 import java.awt.Color;
+import java.sql.*;
+import javax.swing.JOptionPane;
+
+
 
 /**
  *
@@ -15,6 +19,11 @@ public class MotorPH extends javax.swing.JFrame {
     /**
      * Creates new form MotorPH
      */
+    String selectedWeekForLabel;
+    String accountNumber;
+    Double hourlyRate;
+    int totalWeekHours;
+    int selectedWeekHoursInt;
     public MotorPH() {
         initComponents();
     }
@@ -29,15 +38,15 @@ public class MotorPH extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        tab1 = new javax.swing.JPanel();
+        dashboardTab = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tab2 = new javax.swing.JPanel();
+        profileTab = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        tab3 = new javax.swing.JPanel();
+        payslipTab = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        tab4 = new javax.swing.JPanel();
+        logoffTab = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        tab5 = new javax.swing.JPanel();
+        attendanceTab = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         employeeNameLabel = new javax.swing.JLabel();
         positionLabel = new javax.swing.JLabel();
@@ -57,7 +66,6 @@ public class MotorPH extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        test = new javax.swing.JLabel();
         profilePanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -106,30 +114,15 @@ public class MotorPH extends javax.swing.JFrame {
         profilePhilhealthNumber = new javax.swing.JLabel();
         profileTinNumber = new javax.swing.JLabel();
         payrollPanel = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jSeparator8 = new javax.swing.JSeparator();
-        jSeparator9 = new javax.swing.JSeparator();
-        jSeparator10 = new javax.swing.JSeparator();
-        jSeparator11 = new javax.swing.JSeparator();
-        jLabel16 = new javax.swing.JLabel();
-        payrollTWeekDeductionsLabel = new javax.swing.JLabel();
-        payrollTWeekHoursLabel = new javax.swing.JLabel();
-        payrollTWeekOvertimeLabel = new javax.swing.JLabel();
-        payrollTWeekEarnings = new javax.swing.JLabel();
-        payrollTWeekDeductions = new javax.swing.JLabel();
-        payrollTWeekHours = new javax.swing.JLabel();
-        payrollTWeekOvertime = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
         payrollBasePay = new javax.swing.JLabel();
         payrollOvertimePay = new javax.swing.JLabel();
         payrollRiceAllow = new javax.swing.JLabel();
@@ -150,8 +143,50 @@ public class MotorPH extends javax.swing.JFrame {
         payrollTax = new javax.swing.JLabel();
         payrollTotalDeduction = new javax.swing.JLabel();
         payrollTotalNet = new javax.swing.JLabel();
-        erPanel = new javax.swing.JPanel();
-        taxReportPanel = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        weekPanelPayroll = new javax.swing.JPanel();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        jLabel16 = new javax.swing.JLabel();
+        payrollTWeekHoursLabel = new javax.swing.JLabel();
+        payrollTWeekEarnings = new javax.swing.JLabel();
+        payrollTWeekHours = new javax.swing.JLabel();
+        selectNewWeekButton = new javax.swing.JButton();
+        selectWeekPayrollPanel = new javax.swing.JPanel();
+        weekSelectorPayroll = new javax.swing.JComboBox<>();
+        jLabel51 = new javax.swing.JLabel();
+        submitButtonForWeekSelectorPayroll = new javax.swing.JButton();
+        hoursSubmittionPanel = new javax.swing.JPanel();
+        weekHoursSubmittionPanelLabel = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        jLabel59 = new javax.swing.JLabel();
+        jSeparator12 = new javax.swing.JSeparator();
+        jSeparator13 = new javax.swing.JSeparator();
+        jSeparator14 = new javax.swing.JSeparator();
+        jSeparator15 = new javax.swing.JSeparator();
+        jSeparator16 = new javax.swing.JSeparator();
+        jSeparator17 = new javax.swing.JSeparator();
+        sundayDropDown = new javax.swing.JComboBox<>();
+        mondayDropDown = new javax.swing.JComboBox<>();
+        tuesdayDropDown = new javax.swing.JComboBox<>();
+        wednesdayDropDown = new javax.swing.JComboBox<>();
+        thursdayDrowDown = new javax.swing.JComboBox<>();
+        fridayDropDown = new javax.swing.JComboBox<>();
+        saturdayDropDown = new javax.swing.JComboBox<>();
+        attendanceSubmit = new javax.swing.JButton();
+        totall = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        attendancePanel = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        weekSelector = new javax.swing.JComboBox<>();
+        jLabel50 = new javax.swing.JLabel();
+        weekSelectorSubmit = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -159,10 +194,10 @@ public class MotorPH extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(51, 0, 204));
 
-        tab1.setBackground(new java.awt.Color(51, 0, 204));
-        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+        dashboardTab.setBackground(new java.awt.Color(51, 0, 204));
+        dashboardTab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab1MouseClicked(evt);
+                dashboardTabMouseClicked(evt);
             }
         });
 
@@ -171,27 +206,27 @@ public class MotorPH extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Dashboard");
 
-        javax.swing.GroupLayout tab1Layout = new javax.swing.GroupLayout(tab1);
-        tab1.setLayout(tab1Layout);
-        tab1Layout.setHorizontalGroup(
-            tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tab1Layout.createSequentialGroup()
+        javax.swing.GroupLayout dashboardTabLayout = new javax.swing.GroupLayout(dashboardTab);
+        dashboardTab.setLayout(dashboardTabLayout);
+        dashboardTabLayout.setHorizontalGroup(
+            dashboardTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashboardTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        tab1Layout.setVerticalGroup(
-            tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab1Layout.createSequentialGroup()
+        dashboardTabLayout.setVerticalGroup(
+            dashboardTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboardTabLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(24, 24, 24))
         );
 
-        tab2.setBackground(new java.awt.Color(51, 0, 204));
-        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+        profileTab.setBackground(new java.awt.Color(51, 0, 204));
+        profileTab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab2MouseClicked(evt);
+                profileTabMouseClicked(evt);
             }
         });
 
@@ -200,105 +235,105 @@ public class MotorPH extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Profile");
 
-        javax.swing.GroupLayout tab2Layout = new javax.swing.GroupLayout(tab2);
-        tab2.setLayout(tab2Layout);
-        tab2Layout.setHorizontalGroup(
-            tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab2Layout.createSequentialGroup()
+        javax.swing.GroupLayout profileTabLayout = new javax.swing.GroupLayout(profileTab);
+        profileTab.setLayout(profileTabLayout);
+        profileTabLayout.setHorizontalGroup(
+            profileTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        tab2Layout.setVerticalGroup(
-            tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab2Layout.createSequentialGroup()
+        profileTabLayout.setVerticalGroup(
+            profileTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileTabLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(24, 24, 24))
         );
 
-        tab3.setBackground(new java.awt.Color(51, 0, 204));
-        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+        payslipTab.setBackground(new java.awt.Color(51, 0, 204));
+        payslipTab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab3MouseClicked(evt);
+                payslipTabMouseClicked(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Payroll");
+        jLabel3.setText("Payslip");
 
-        javax.swing.GroupLayout tab3Layout = new javax.swing.GroupLayout(tab3);
-        tab3.setLayout(tab3Layout);
-        tab3Layout.setHorizontalGroup(
-            tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab3Layout.createSequentialGroup()
+        javax.swing.GroupLayout payslipTabLayout = new javax.swing.GroupLayout(payslipTab);
+        payslipTab.setLayout(payslipTabLayout);
+        payslipTabLayout.setHorizontalGroup(
+            payslipTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, payslipTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        tab3Layout.setVerticalGroup(
-            tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tab3Layout.createSequentialGroup()
+        payslipTabLayout.setVerticalGroup(
+            payslipTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(payslipTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tab4.setBackground(new java.awt.Color(51, 0, 204));
-        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+        logoffTab.setBackground(new java.awt.Color(51, 0, 204));
+        logoffTab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab4MouseClicked(evt);
+                logoffTabMouseClicked(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Employee Request");
+        jLabel4.setText("Logoff");
 
-        javax.swing.GroupLayout tab4Layout = new javax.swing.GroupLayout(tab4);
-        tab4.setLayout(tab4Layout);
-        tab4Layout.setHorizontalGroup(
-            tab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab4Layout.createSequentialGroup()
+        javax.swing.GroupLayout logoffTabLayout = new javax.swing.GroupLayout(logoffTab);
+        logoffTab.setLayout(logoffTabLayout);
+        logoffTabLayout.setHorizontalGroup(
+            logoffTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoffTabLayout.createSequentialGroup()
                 .addContainerGap(24, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        tab4Layout.setVerticalGroup(
-            tab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tab4Layout.createSequentialGroup()
+        logoffTabLayout.setVerticalGroup(
+            logoffTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logoffTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        tab5.setBackground(new java.awt.Color(51, 0, 204));
-        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+        attendanceTab.setBackground(new java.awt.Color(51, 0, 204));
+        attendanceTab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab5MouseClicked(evt);
+                attendanceTabMouseClicked(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Tax Report");
+        jLabel5.setText("Attendance");
 
-        javax.swing.GroupLayout tab5Layout = new javax.swing.GroupLayout(tab5);
-        tab5.setLayout(tab5Layout);
-        tab5Layout.setHorizontalGroup(
-            tab5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab5Layout.createSequentialGroup()
+        javax.swing.GroupLayout attendanceTabLayout = new javax.swing.GroupLayout(attendanceTab);
+        attendanceTab.setLayout(attendanceTabLayout);
+        attendanceTabLayout.setHorizontalGroup(
+            attendanceTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, attendanceTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        tab5Layout.setVerticalGroup(
-            tab5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tab5Layout.createSequentialGroup()
+        attendanceTabLayout.setVerticalGroup(
+            attendanceTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(attendanceTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -316,17 +351,17 @@ public class MotorPH extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tab3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tab4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tab5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(dashboardTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(payslipTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logoffTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(attendanceTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(positionLabel)
                     .addComponent(employeeNameLabel))
                 .addGap(24, 24, 24))
-            .addComponent(tab2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(profileTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,16 +371,16 @@ public class MotorPH extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(positionLabel)
                 .addGap(40, 40, 40)
-                .addComponent(tab1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dashboardTab, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tab2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profileTab, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tab3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(payslipTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addComponent(attendanceTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addComponent(logoffTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         mainPanel.setBackground(new java.awt.Color(235, 235, 255));
@@ -394,17 +429,17 @@ public class MotorPH extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("SansSerif", 1, 23)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(51, 153, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("20");
+        jLabel12.setText("0");
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 23)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(51, 153, 255));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("6");
+        jLabel13.setText("26");
 
         jLabel14.setFont(new java.awt.Font("SansSerif", 1, 23)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(51, 153, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("2");
+        jLabel14.setText("1");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -478,20 +513,13 @@ public class MotorPH extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        test.setText("TEST");
-
         javax.swing.GroupLayout dashboardPanelLayout = new javax.swing.GroupLayout(dashboardPanel);
         dashboardPanel.setLayout(dashboardPanelLayout);
         dashboardPanelLayout.setHorizontalGroup(
             dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardPanelLayout.createSequentialGroup()
-                .addGroup(dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dashboardPanelLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(dashboardPanelLayout.createSequentialGroup()
-                        .addGap(361, 361, 361)
-                        .addComponent(test)))
+                .addGap(25, 25, 25)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         dashboardPanelLayout.setVerticalGroup(
@@ -499,9 +527,7 @@ public class MotorPH extends javax.swing.JFrame {
             .addGroup(dashboardPanelLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(128, 128, 128)
-                .addComponent(test)
-                .addContainerGap(282, Short.MAX_VALUE))
+                .addContainerGap(437, Short.MAX_VALUE))
         );
 
         profilePanel.setBackground(new java.awt.Color(235, 235, 255));
@@ -938,132 +964,6 @@ public class MotorPH extends javax.swing.JFrame {
 
         payrollPanel.setBackground(new java.awt.Color(235, 235, 255));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-
-        jSeparator8.setForeground(new java.awt.Color(153, 153, 153));
-        jSeparator8.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator9.setForeground(new java.awt.Color(153, 153, 153));
-        jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator10.setForeground(new java.awt.Color(153, 153, 153));
-        jSeparator10.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator11.setForeground(new java.awt.Color(153, 153, 153));
-        jSeparator11.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Total Week Earnings");
-
-        payrollTWeekDeductionsLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        payrollTWeekDeductionsLabel.setForeground(new java.awt.Color(102, 102, 102));
-        payrollTWeekDeductionsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        payrollTWeekDeductionsLabel.setText("Total Week Deductions");
-
-        payrollTWeekHoursLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        payrollTWeekHoursLabel.setForeground(new java.awt.Color(102, 102, 102));
-        payrollTWeekHoursLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        payrollTWeekHoursLabel.setText("Total Week Hours");
-
-        payrollTWeekOvertimeLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        payrollTWeekOvertimeLabel.setForeground(new java.awt.Color(102, 102, 102));
-        payrollTWeekOvertimeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        payrollTWeekOvertimeLabel.setText("Total Week Overtime");
-
-        payrollTWeekEarnings.setFont(new java.awt.Font("SansSerif", 1, 23)); // NOI18N
-        payrollTWeekEarnings.setForeground(new java.awt.Color(51, 153, 255));
-        payrollTWeekEarnings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        payrollTWeekEarnings.setText("26");
-
-        payrollTWeekDeductions.setFont(new java.awt.Font("SansSerif", 1, 23)); // NOI18N
-        payrollTWeekDeductions.setForeground(new java.awt.Color(51, 153, 255));
-        payrollTWeekDeductions.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        payrollTWeekDeductions.setText("-");
-
-        payrollTWeekHours.setFont(new java.awt.Font("SansSerif", 1, 23)); // NOI18N
-        payrollTWeekHours.setForeground(new java.awt.Color(51, 153, 255));
-        payrollTWeekHours.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        payrollTWeekHours.setText("42");
-
-        payrollTWeekOvertime.setFont(new java.awt.Font("SansSerif", 1, 23)); // NOI18N
-        payrollTWeekOvertime.setForeground(new java.awt.Color(51, 153, 255));
-        payrollTWeekOvertime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        payrollTWeekOvertime.setText("0");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(payrollTWeekEarnings, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(payrollTWeekDeductions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(payrollTWeekDeductionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(payrollTWeekHoursLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                    .addComponent(payrollTWeekHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(payrollTWeekOvertimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(payrollTWeekOvertime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addComponent(payrollTWeekOvertimeLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(payrollTWeekOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, 29, Short.MAX_VALUE))
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addComponent(payrollTWeekHoursLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(payrollTWeekHours, javax.swing.GroupLayout.PREFERRED_SIZE, 29, Short.MAX_VALUE))
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addComponent(payrollTWeekDeductionsLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(payrollTWeekDeductions, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jSeparator11, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(payrollTWeekEarnings)))
-                .addGap(14, 14, 14))
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -1073,10 +973,6 @@ public class MotorPH extends javax.swing.JFrame {
         jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(51, 153, 255));
         jLabel25.setText("Deductions");
-
-        jLabel26.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel26.setText("Pay Period:");
 
         jLabel27.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(102, 102, 102));
@@ -1101,10 +997,6 @@ public class MotorPH extends javax.swing.JFrame {
         jLabel37.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(102, 102, 102));
         jLabel37.setText("Total Gross Earnings:");
-
-        jLabel38.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel38.setText("January 1 - Feb.1 ");
 
         payrollBasePay.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         payrollBasePay.setForeground(new java.awt.Color(102, 102, 102));
@@ -1160,15 +1052,15 @@ public class MotorPH extends javax.swing.JFrame {
 
         payrollSSS.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         payrollSSS.setForeground(new java.awt.Color(102, 102, 102));
-        payrollSSS.setText("Pay Period:");
+        payrollSSS.setText("placeholder");
 
         payrollPhilhealth.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         payrollPhilhealth.setForeground(new java.awt.Color(102, 102, 102));
-        payrollPhilhealth.setText("Philhealth");
+        payrollPhilhealth.setText("placeholder");
 
         payrollPagibig.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         payrollPagibig.setForeground(new java.awt.Color(102, 102, 102));
-        payrollPagibig.setText("Philhealth");
+        payrollPagibig.setText("placeholder");
 
         jLabel53.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel53.setForeground(new java.awt.Color(102, 102, 102));
@@ -1176,15 +1068,15 @@ public class MotorPH extends javax.swing.JFrame {
 
         payrollTax.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         payrollTax.setForeground(new java.awt.Color(102, 102, 102));
-        payrollTax.setText("Philhealth");
+        payrollTax.setText("placeholder");
 
         payrollTotalDeduction.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         payrollTotalDeduction.setForeground(new java.awt.Color(102, 102, 102));
-        payrollTotalDeduction.setText("Philhealth");
+        payrollTotalDeduction.setText("placeholder");
 
         payrollTotalNet.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         payrollTotalNet.setForeground(new java.awt.Color(102, 102, 102));
-        payrollTotalNet.setText("Philhealth");
+        payrollTotalNet.setText("placeholder");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1206,10 +1098,6 @@ public class MotorPH extends javax.swing.JFrame {
                                 .addComponent(payrollClothingAllow, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel10Layout.createSequentialGroup()
                                         .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1260,7 +1148,7 @@ public class MotorPH extends javax.swing.JFrame {
                                         .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(44, 44, 44)
                                         .addComponent(payrollSSS, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1271,8 +1159,6 @@ public class MotorPH extends javax.swing.JFrame {
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26)
-                    .addComponent(jLabel38)
                     .addComponent(jLabel43)
                     .addComponent(payrollSSS))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1316,6 +1202,163 @@ public class MotorPH extends javax.swing.JFrame {
                 .addContainerGap(146, Short.MAX_VALUE))
         );
 
+        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
+
+        weekPanelPayroll.setBackground(new java.awt.Color(255, 255, 255));
+
+        jSeparator9.setForeground(new java.awt.Color(153, 153, 153));
+        jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jSeparator10.setForeground(new java.awt.Color(153, 153, 153));
+        jSeparator10.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("Total Week Earnings");
+
+        payrollTWeekHoursLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        payrollTWeekHoursLabel.setForeground(new java.awt.Color(102, 102, 102));
+        payrollTWeekHoursLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        payrollTWeekHoursLabel.setText("Total Week Hours");
+
+        payrollTWeekEarnings.setFont(new java.awt.Font("SansSerif", 1, 23)); // NOI18N
+        payrollTWeekEarnings.setForeground(new java.awt.Color(51, 153, 255));
+        payrollTWeekEarnings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        payrollTWeekEarnings.setText("26");
+
+        payrollTWeekHours.setFont(new java.awt.Font("SansSerif", 1, 23)); // NOI18N
+        payrollTWeekHours.setForeground(new java.awt.Color(51, 153, 255));
+        payrollTWeekHours.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        payrollTWeekHours.setText("42");
+
+        selectNewWeekButton.setText("Back");
+        selectNewWeekButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectNewWeekButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout weekPanelPayrollLayout = new javax.swing.GroupLayout(weekPanelPayroll);
+        weekPanelPayroll.setLayout(weekPanelPayrollLayout);
+        weekPanelPayrollLayout.setHorizontalGroup(
+            weekPanelPayrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(weekPanelPayrollLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(weekPanelPayrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(payrollTWeekEarnings, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addGroup(weekPanelPayrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(weekPanelPayrollLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(payrollTWeekHours, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(185, 185, 185)
+                        .addComponent(selectNewWeekButton))
+                    .addComponent(payrollTWeekHoursLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
+            .addGroup(weekPanelPayrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(weekPanelPayrollLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        weekPanelPayrollLayout.setVerticalGroup(
+            weekPanelPayrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, weekPanelPayrollLayout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addGroup(weekPanelPayrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(weekPanelPayrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, weekPanelPayrollLayout.createSequentialGroup()
+                            .addComponent(payrollTWeekHoursLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(weekPanelPayrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(payrollTWeekHours, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(selectNewWeekButton))))
+                    .addGroup(weekPanelPayrollLayout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(payrollTWeekEarnings)))
+                .addGap(14, 14, 14))
+            .addGroup(weekPanelPayrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(weekPanelPayrollLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        selectWeekPayrollPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        weekSelectorPayroll.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Week1", "Week2", "Week3", "Week4", "Week5", "Week6", "Week7", "Week8", "Week9", "Week10", "Week11", "Week12", "Week13", "Week14", "Week15", "Week16", "Week17", "Week18", "Week19", "Week20", "Week21", "Week22", "Week23", "Week24", "Week25", "Week26", "Week27", "Week28", "Week29", "Week30", "Week31", "Week32", "Week33", "Week34", "Week35", "Week36", "Week37", "Week38", "Week39", "Week40", "Week41", "Week42", "Week43", "Week44", "Week45", "Week46", "Week47", "Week48", "Week49", "Week50", "Week51", "Week52" }));
+
+        jLabel51.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel51.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel51.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel51.setText("Select Week");
+
+        submitButtonForWeekSelectorPayroll.setText("Submit");
+        submitButtonForWeekSelectorPayroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonForWeekSelectorPayrollActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout selectWeekPayrollPanelLayout = new javax.swing.GroupLayout(selectWeekPayrollPanel);
+        selectWeekPayrollPanel.setLayout(selectWeekPayrollPanelLayout);
+        selectWeekPayrollPanelLayout.setHorizontalGroup(
+            selectWeekPayrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(selectWeekPayrollPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel51, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(selectWeekPayrollPanelLayout.createSequentialGroup()
+                .addGap(383, 383, 383)
+                .addComponent(weekSelectorPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(submitButtonForWeekSelectorPayroll)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        selectWeekPayrollPanelLayout.setVerticalGroup(
+            selectWeekPayrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectWeekPayrollPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(selectWeekPayrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(weekSelectorPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(submitButtonForWeekSelectorPayroll))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(selectWeekPayrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel13Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(weekPanelPayroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(selectWeekPayrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel13Layout.createSequentialGroup()
+                    .addGap(8, 8, 8)
+                    .addComponent(weekPanelPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(9, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout payrollPanelLayout = new javax.swing.GroupLayout(payrollPanel);
         payrollPanel.setLayout(payrollPanelLayout);
         payrollPanelLayout.setHorizontalGroup(
@@ -1323,44 +1366,315 @@ public class MotorPH extends javax.swing.JFrame {
             .addGroup(payrollPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(payrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         payrollPanelLayout.setVerticalGroup(
             payrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(payrollPanelLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        erPanel.setBackground(new java.awt.Color(153, 255, 0));
+        hoursSubmittionPanel.setBackground(new java.awt.Color(233, 235, 255));
 
-        javax.swing.GroupLayout erPanelLayout = new javax.swing.GroupLayout(erPanel);
-        erPanel.setLayout(erPanelLayout);
-        erPanelLayout.setHorizontalGroup(
-            erPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 981, Short.MAX_VALUE)
+        weekHoursSubmittionPanelLabel.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        weekHoursSubmittionPanelLabel.setForeground(new java.awt.Color(0, 153, 255));
+        weekHoursSubmittionPanelLabel.setText("Week X");
+
+        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel52.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel52.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel52.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel52.setText("Sunday");
+
+        jLabel54.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel54.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel54.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel54.setText("Tuesday");
+
+        jLabel55.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel55.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel55.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel55.setText("Monday");
+
+        jLabel56.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel56.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel56.setText("Wednesday");
+
+        jLabel57.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel57.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel57.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel57.setText("Friday");
+
+        jLabel58.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel58.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel58.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel58.setText("Saturday");
+
+        jLabel59.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel59.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel59.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel59.setText("Thursday");
+
+        jSeparator12.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jSeparator13.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jSeparator14.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jSeparator15.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jSeparator16.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jSeparator17.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        sundayDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", " " }));
+
+        mondayDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", " " }));
+
+        tuesdayDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", " " }));
+
+        wednesdayDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", " " }));
+
+        thursdayDrowDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", " " }));
+
+        fridayDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", " " }));
+
+        saturdayDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", " " }));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(sundayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel55, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(mondayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(tuesdayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(wednesdayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(thursdayDrowDown, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(fridayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jSeparator17, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(saturdayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
-        erPanelLayout.setVerticalGroup(
-            erPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 534, Short.MAX_VALUE)
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sundayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                            .addComponent(jLabel55, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(mondayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(wednesdayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel12Layout.createSequentialGroup()
+                            .addComponent(jLabel58)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(saturdayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel12Layout.createSequentialGroup()
+                            .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(thursdayDrowDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel12Layout.createSequentialGroup()
+                            .addComponent(jLabel57)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fridayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator17, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tuesdayDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
-        taxReportPanel.setBackground(new java.awt.Color(255, 255, 204));
+        attendanceSubmit.setText("Submit");
+        attendanceSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                attendanceSubmitActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout taxReportPanelLayout = new javax.swing.GroupLayout(taxReportPanel);
-        taxReportPanel.setLayout(taxReportPanelLayout);
-        taxReportPanelLayout.setHorizontalGroup(
-            taxReportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 981, Short.MAX_VALUE)
+        totall.setText("total");
+
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout hoursSubmittionPanelLayout = new javax.swing.GroupLayout(hoursSubmittionPanel);
+        hoursSubmittionPanel.setLayout(hoursSubmittionPanelLayout);
+        hoursSubmittionPanelLayout.setHorizontalGroup(
+            hoursSubmittionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(hoursSubmittionPanelLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(hoursSubmittionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(attendanceSubmit)
+                    .addGroup(hoursSubmittionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(weekHoursSubmittionPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)))
+                .addContainerGap(32, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hoursSubmittionPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(totall)
+                .addGap(194, 194, 194))
         );
-        taxReportPanelLayout.setVerticalGroup(
-            taxReportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 534, Short.MAX_VALUE)
+        hoursSubmittionPanelLayout.setVerticalGroup(
+            hoursSubmittionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(hoursSubmittionPanelLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(weekHoursSubmittionPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(attendanceSubmit)
+                .addGap(41, 41, 41)
+                .addComponent(totall)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18))
+        );
+
+        attendancePanel.setBackground(new java.awt.Color(235, 235, 255));
+
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+
+        weekSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Week1", "Week2", "Week3", "Week4", "Week5", "Week6", "Week7", "Week8", "Week9", "Week10", "Week11", "Week12", "Week13", "Week14", "Week15", "Week16", "Week17", "Week18", "Week19", "Week20", "Week21", "Week22", "Week23", "Week24", "Week25", "Week26", "Week27", "Week28", "Week29", "Week30", "Week31", "Week32", "Week33", "Week34", "Week35", "Week36", "Week37", "Week38", "Week39", "Week40", "Week41", "Week42", "Week43", "Week44", "Week45", "Week46", "Week47", "Week48", "Week49", "Week50", "Week51", "Week52" }));
+        weekSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                weekSelectorActionPerformed(evt);
+            }
+        });
+
+        jLabel50.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel50.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel50.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel50.setText("Choose Week");
+
+        weekSelectorSubmit.setText("Submit");
+        weekSelectorSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                weekSelectorSubmitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(164, 164, 164)
+                .addComponent(weekSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(weekSelectorSubmit)
+                .addContainerGap(161, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap(68, Short.MAX_VALUE)
+                .addComponent(jLabel50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(weekSelectorSubmit)
+                    .addComponent(weekSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(103, 103, 103))
+        );
+
+        javax.swing.GroupLayout attendancePanelLayout = new javax.swing.GroupLayout(attendancePanel);
+        attendancePanel.setLayout(attendancePanelLayout);
+        attendancePanelLayout.setHorizontalGroup(
+            attendancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, attendancePanelLayout.createSequentialGroup()
+                .addContainerGap(250, Short.MAX_VALUE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(241, 241, 241))
+        );
+        attendancePanelLayout.setVerticalGroup(
+            attendancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(attendancePanelLayout.createSequentialGroup()
+                .addGap(158, 158, 158)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(158, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -1381,7 +1695,7 @@ public class MotorPH extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(erPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(hoursSubmittionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
@@ -1391,7 +1705,7 @@ public class MotorPH extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(taxReportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(attendancePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         mainPanelLayout.setVerticalGroup(
@@ -1410,7 +1724,7 @@ public class MotorPH extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(erPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(hoursSubmittionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
@@ -1420,7 +1734,7 @@ public class MotorPH extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(taxReportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(attendancePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -1447,7 +1761,7 @@ public class MotorPH extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(287, 287, 287)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -1481,111 +1795,196 @@ public class MotorPH extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
+    private void dashboardTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboardTabMouseClicked
+        // Hide and Show panel for mainPanel
         dashboardPanel.setVisible(true);
         profilePanel.setVisible(false);
         payrollPanel.setVisible(false);
-        erPanel.setVisible(false);
-        taxReportPanel.setVisible(false);
-        
-        tab1.setBackground(Color.white);
+        hoursSubmittionPanel.setVisible(false);
+        attendancePanel.setVisible(false);
+        //Change color of tab and font depending on what tab is clicked
+        dashboardTab.setBackground(Color.white);
         jLabel1.setForeground(new Color(51,0,204));
-        tab2.setBackground(new Color(51,0,204));
+        profileTab.setBackground(new Color(51,0,204));
         jLabel2.setForeground(Color.white);
-        tab3.setBackground(new Color(51,0,204));
+        payslipTab.setBackground(new Color(51,0,204));
         jLabel3.setForeground(Color.white);
-        tab4.setBackground(new Color(51,0,204));
+        logoffTab.setBackground(new Color(51,0,204));
         jLabel4.setForeground(Color.white);
-        tab5.setBackground(new Color(51,0,204));
+        attendanceTab.setBackground(new Color(51,0,204));
         jLabel5.setForeground(Color.white);
         
         jLabel8.setText("Dashboard");
-    }//GEN-LAST:event_tab1MouseClicked
+    }//GEN-LAST:event_dashboardTabMouseClicked
 
-    private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked
+    private void profileTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileTabMouseClicked
+        // Hide and Show panel for mainPanel
         dashboardPanel.setVisible(false);
         profilePanel.setVisible(true);
         payrollPanel.setVisible(false);
-        erPanel.setVisible(false);
-        taxReportPanel.setVisible(false);
-        
-        tab1.setBackground(new Color(51,0,204));
+        hoursSubmittionPanel.setVisible(false);
+        attendancePanel.setVisible(false);
+        //Change color of tab and font depending on what tab is clicked
+        dashboardTab.setBackground(new Color(51,0,204));
         jLabel1.setForeground(Color.white);
-        tab2.setBackground(Color.white);
+        profileTab.setBackground(Color.white);
         jLabel2.setForeground(new Color(51,0,204));
-        tab3.setBackground(new Color(51,0,204));
+        payslipTab.setBackground(new Color(51,0,204));
         jLabel3.setForeground(Color.white);
-        tab4.setBackground(new Color(51,0,204));
+        logoffTab.setBackground(new Color(51,0,204));
         jLabel4.setForeground(Color.white);
-        tab5.setBackground(new Color(51,0,204));
+        attendanceTab.setBackground(new Color(51,0,204));
         jLabel5.setForeground(Color.white);
         
         jLabel8.setText("Profile");
-    }//GEN-LAST:event_tab2MouseClicked
+    }//GEN-LAST:event_profileTabMouseClicked
 
-    private void tab3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab3MouseClicked
+    private void payslipTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payslipTabMouseClicked
+        // Hide and Show panel for mainPanel
         dashboardPanel.setVisible(false);
         profilePanel.setVisible(false);
         payrollPanel.setVisible(true);
-        erPanel.setVisible(false);
-        taxReportPanel.setVisible(false);
+        hoursSubmittionPanel.setVisible(false);
+        attendancePanel.setVisible(false);
+        selectWeekPayrollPanel.setVisible(true);
+        weekPanelPayroll.setVisible(false);
         
-        tab1.setBackground(new Color(51,0,204));
+        //Change color of tab and font depending on what tab is clicked
+        dashboardTab.setBackground(new Color(51,0,204));
         jLabel1.setForeground(Color.white);
-        tab2.setBackground(new Color(51,0,204));
+        profileTab.setBackground(new Color(51,0,204));
         jLabel2.setForeground(Color.white);
-        tab3.setBackground(Color.white);
+        payslipTab.setBackground(Color.white);
         jLabel3.setForeground(new Color(51,0,204));
-        tab4.setBackground(new Color(51,0,204));
+        logoffTab.setBackground(new Color(51,0,204));
         jLabel4.setForeground(Color.white);
-        tab5.setBackground(new Color(51,0,204));
+        attendanceTab.setBackground(new Color(51,0,204));
         jLabel5.setForeground(Color.white);
         
-        jLabel8.setText("Payroll");
+        jLabel8.setText("Payslip");
         
-    }//GEN-LAST:event_tab3MouseClicked
+    }//GEN-LAST:event_payslipTabMouseClicked
 
-    private void tab4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab4MouseClicked
+    private void logoffTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoffTabMouseClicked
+        // opens chooseuser class and close motorPH class
+        chooseuser cu = new chooseuser();
+        cu.show();
+        dispose();
+    }//GEN-LAST:event_logoffTabMouseClicked
+
+    private void attendanceTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_attendanceTabMouseClicked
+        // Hide and Show panel for mainPanel
         dashboardPanel.setVisible(false);
         profilePanel.setVisible(false);
         payrollPanel.setVisible(false);
-        erPanel.setVisible(true);
-        taxReportPanel.setVisible(false);
+        hoursSubmittionPanel.setVisible(false);
+        attendancePanel.setVisible(true);
         
-        tab1.setBackground(new Color(51,0,204));
+        // Below these are just code for visuals in gui
+        dashboardTab.setBackground(new Color(51,0,204));
         jLabel1.setForeground(Color.white);
-        tab2.setBackground(new Color(51,0,204));
+        profileTab.setBackground(new Color(51,0,204));
         jLabel2.setForeground(Color.white);
-        tab3.setBackground(new Color(51,0,204));
+        payslipTab.setBackground(new Color(51,0,204));
         jLabel3.setForeground(Color.white);
-        tab4.setBackground(Color.white);
-        jLabel4.setForeground(new Color(51,0,204));
-        tab5.setBackground(new Color(51,0,204));
-        jLabel5.setForeground(Color.white);
-        
-        jLabel8.setText("Employee Request");
-    }//GEN-LAST:event_tab4MouseClicked
-
-    private void tab5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab5MouseClicked
-        dashboardPanel.setVisible(false);
-        profilePanel.setVisible(false);
-        payrollPanel.setVisible(false);
-        erPanel.setVisible(false);
-        taxReportPanel.setVisible(true);
-        
-        tab1.setBackground(new Color(51,0,204));
-        jLabel1.setForeground(Color.white);
-        tab2.setBackground(new Color(51,0,204));
-        jLabel2.setForeground(Color.white);
-        tab3.setBackground(new Color(51,0,204));
-        jLabel3.setForeground(Color.white);
-        tab4.setBackground(new Color(51,0,204));
+        logoffTab.setBackground(new Color(51,0,204));
         jLabel4.setForeground(Color.white);
-        tab5.setBackground(Color.white);
+        attendanceTab.setBackground(Color.white);
         jLabel5.setForeground(new Color(51,0,204));
         
-        jLabel8.setText("Tax Report");
-    }//GEN-LAST:event_tab5MouseClicked
+        jLabel8.setText("Attendance");
+    }//GEN-LAST:event_attendanceTabMouseClicked
+
+    private void weekSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weekSelectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_weekSelectorActionPerformed
+
+    private void attendanceSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attendanceSubmitActionPerformed
+        // This part is to declare the number of hours per day in the dropdown menu
+        String sunday =  sundayDropDown.getSelectedItem().toString();
+        int sundayInt = Integer.parseInt(sunday);
+        String monday =  mondayDropDown.getSelectedItem().toString();
+        int mondayInt = Integer.parseInt(monday);
+        String tuesday =  tuesdayDropDown.getSelectedItem().toString();
+        int tuesdayInt = Integer.parseInt(tuesday);
+        String wednesday =  wednesdayDropDown.getSelectedItem().toString();
+        int wednesdayInt = Integer.parseInt(wednesday);
+        String thursday =  thursdayDrowDown.getSelectedItem().toString();
+        int thursdayInt = Integer.parseInt(thursday);
+        String friday =  fridayDropDown.getSelectedItem().toString();
+        int fridayInt = Integer.parseInt(friday);
+        String saturday =  saturdayDropDown.getSelectedItem().toString();
+        int saturdayInt = Integer.parseInt(saturday);
+        totalWeekHours = sundayInt+mondayInt+tuesdayInt+wednesdayInt+thursdayInt+fridayInt+saturdayInt;
+        
+        //connecting to database
+        try {
+            Class.forName("org.postgresql.Driver");
+
+            // Establish the connection
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/employeetable", "postgres", "root");
+            System.out.println("Connected to the PostgreSQL database successfully.");
+
+            // Code for query to input total week hours in attendance sheet in the database
+            String sqlQuery = "UPDATE attendance SET " + selectedWeekForLabel + " = ? WHERE accountnumber = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            
+            
+            preparedStatement.setInt(1, totalWeekHours);
+            preparedStatement.setString(2, accountNumber);
+            
+            int rowsAffected = preparedStatement.executeUpdate();
+            System.out.println(totalWeekHours + "Hours has been added to " + selectedWeekForLabel);
+            // Close the connection when done
+            connection.close();
+        } catch (ClassNotFoundException e) {
+            System.err.println("PostgreSQL JDBC Driver not found.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Failed to connect to the PostgreSQL database.");
+            e.printStackTrace();
+        }
+        
+            
+
+        
+
+        String totalWeekHoursString =""+ totalWeekHours; //converts int totalWeekHours to String so we can setText into label in the gui
+        System.out.println(selectedWeekForLabel); // just for checking
+        JOptionPane.showMessageDialog(null,"attendance recorded"); // pop up text to notify user that attendance was recorded
+    }//GEN-LAST:event_attendanceSubmitActionPerformed
+
+    private void weekSelectorSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weekSelectorSubmitActionPerformed
+        int selectedWeekInt = weekSelector.getSelectedIndex();
+        selectedWeekForLabel = weekSelector.getSelectedItem().toString();
+        
+        weekHoursSubmittionPanelLabel.setText(selectedWeekForLabel);
+        attendancePanel.setVisible(false);
+        hoursSubmittionPanel.setVisible(true);
+    }//GEN-LAST:event_weekSelectorSubmitActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // goes back to week selector
+        hoursSubmittionPanel.setVisible(false);
+        attendancePanel.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void submitButtonForWeekSelectorPayrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonForWeekSelectorPayrollActionPerformed
+        String selectedWeekPayroll = weekSelectorPayroll.getSelectedItem().toString();
+        totalWeekHoursPayroll TWHP = new totalWeekHoursPayroll(selectedWeekPayroll, accountNumber);
+        weekPanelPayroll.setVisible(true);
+        selectWeekPayrollPanel.setVisible(false);
+        employeelogin emplogin = new employeelogin();
+        Double totalWeekHoursEarnings = hourlyRate * TWHP.selectedWeekPayrollInt;
+        String totalWeekHoursEarningsString = Double.toString(totalWeekHoursEarnings);
+        payrollTWeekEarnings.setText(totalWeekHoursEarningsString);
+        payrollTWeekHours.setText(TWHP.selectedWeekPayroll);
+    }//GEN-LAST:event_submitButtonForWeekSelectorPayrollActionPerformed
+
+    private void selectNewWeekButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectNewWeekButtonActionPerformed
+        weekPanelPayroll.setVisible(false);
+        selectWeekPayrollPanel.setVisible(true);
+    }//GEN-LAST:event_selectNewWeekButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1622,9 +2021,15 @@ public class MotorPH extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel attendancePanel;
+    private javax.swing.JButton attendanceSubmit;
+    private javax.swing.JPanel attendanceTab;
     private javax.swing.JPanel dashboardPanel;
+    private javax.swing.JPanel dashboardTab;
     public javax.swing.JLabel employeeNameLabel;
-    private javax.swing.JPanel erPanel;
+    private javax.swing.JComboBox<String> fridayDropDown;
+    public javax.swing.JPanel hoursSubmittionPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1643,7 +2048,6 @@ public class MotorPH extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -1656,7 +2060,6 @@ public class MotorPH extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
@@ -1670,34 +2073,51 @@ public class MotorPH extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    public javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator14;
+    private javax.swing.JSeparator jSeparator15;
+    private javax.swing.JSeparator jSeparator16;
+    private javax.swing.JSeparator jSeparator17;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JPanel logoffTab;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JComboBox<String> mondayDropDown;
     public javax.swing.JLabel payrollBasePay;
     public javax.swing.JLabel payrollClothingAllow;
     public javax.swing.JLabel payrollOvertimePay;
@@ -1707,17 +2127,14 @@ public class MotorPH extends javax.swing.JFrame {
     public javax.swing.JLabel payrollPhoneAllow;
     public javax.swing.JLabel payrollRiceAllow;
     public javax.swing.JLabel payrollSSS;
-    private javax.swing.JLabel payrollTWeekDeductions;
-    private javax.swing.JLabel payrollTWeekDeductionsLabel;
     public javax.swing.JLabel payrollTWeekEarnings;
-    private javax.swing.JLabel payrollTWeekHours;
+    public javax.swing.JLabel payrollTWeekHours;
     private javax.swing.JLabel payrollTWeekHoursLabel;
-    private javax.swing.JLabel payrollTWeekOvertime;
-    private javax.swing.JLabel payrollTWeekOvertimeLabel;
     public javax.swing.JLabel payrollTax;
     public javax.swing.JLabel payrollTotalDeduction;
     public javax.swing.JLabel payrollTotalGross;
     public javax.swing.JLabel payrollTotalNet;
+    private javax.swing.JPanel payslipTab;
     private javax.swing.JLabel personalinfoLabel;
     private javax.swing.JLabel personalinfoLabel1;
     private javax.swing.JLabel personalinfoLabel2;
@@ -1740,13 +2157,21 @@ public class MotorPH extends javax.swing.JFrame {
     public javax.swing.JLabel profilePosition;
     public javax.swing.JLabel profileRiceAllow;
     public javax.swing.JLabel profileSssNumber;
+    private javax.swing.JPanel profileTab;
     public javax.swing.JLabel profileTinNumber;
-    private javax.swing.JPanel tab1;
-    private javax.swing.JPanel tab2;
-    private javax.swing.JPanel tab3;
-    private javax.swing.JPanel tab4;
-    private javax.swing.JPanel tab5;
-    private javax.swing.JPanel taxReportPanel;
-    public javax.swing.JLabel test;
+    private javax.swing.JComboBox<String> saturdayDropDown;
+    private javax.swing.JButton selectNewWeekButton;
+    public javax.swing.JPanel selectWeekPayrollPanel;
+    private javax.swing.JButton submitButtonForWeekSelectorPayroll;
+    private javax.swing.JComboBox<String> sundayDropDown;
+    private javax.swing.JComboBox<String> thursdayDrowDown;
+    private javax.swing.JLabel totall;
+    private javax.swing.JComboBox<String> tuesdayDropDown;
+    private javax.swing.JComboBox<String> wednesdayDropDown;
+    private javax.swing.JLabel weekHoursSubmittionPanelLabel;
+    public javax.swing.JPanel weekPanelPayroll;
+    private javax.swing.JComboBox<String> weekSelector;
+    private javax.swing.JComboBox<String> weekSelectorPayroll;
+    private javax.swing.JButton weekSelectorSubmit;
     // End of variables declaration//GEN-END:variables
 }

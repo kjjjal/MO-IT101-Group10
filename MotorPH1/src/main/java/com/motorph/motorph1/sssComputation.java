@@ -7,8 +7,8 @@ public class sssComputation {
     Double basePay;
     public Double sssContribution;
     public String formattedSssContribution;
-    public sssComputation(Double pBasePay){
-        basePay = pBasePay;
+    public sssComputation(Double employeeLoginBasePay){
+        basePay = employeeLoginBasePay;
         sssContribution = 135.0;
             Double sssCompensation = 3250.0;
             Double SCom = 500.0;
